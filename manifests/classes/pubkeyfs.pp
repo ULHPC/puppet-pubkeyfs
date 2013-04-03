@@ -57,6 +57,10 @@ inherits pubkeyfs::params
         fail("pubkeyfs 'ensure' parameter must be set to either 'absent' or 'present'")
     }
 
+    if ! ($fstab in [ 'yes', 'no' ]) {
+        fail("pubkeyfs 'fstab' parameter must be set to either 'yes' or 'no'")
+    }
+
     case $::operatingsystem {
         debian, ubuntu:         { include pubkeyfs::debian }
         default: {
@@ -95,9 +99,9 @@ class pubkeyfs::common {
     }
 
 
-    $mount_ensure = $pubkeyfs::ensure ? {
-        'present' => 'mounted',
-        default   => 'absent',
+    $mount_ensure = $pubkeyfs::fstab ? {
+        'yes'   => 'mounted',
+        default => 'absent'
     }
     mount { $pubkeyfs::mount_point:
         ensure   => $mount_ensure,
@@ -131,7 +135,11 @@ class pubkeyfs::common {
 
     if $pubkeyfs::ensure == 'present' {
         Package[$pubkeyfs::params::fuse_packagename] -> Kernel::Module['fuse']
-        Kernel::Module['fuse'] -> File[$pubkeyfs::mount_point] -> Mount[$pubkeyfs::mount_point]
+        Kernel::Module['fuse'] -> File[$pubkeyfs::mount_point]
+
+        if ($fstab == 'yes') {
+          File[$pubkeyfs::mount_point] -> Mount[$pubkeyfs::mount_point]
+        }
 
         exec { 'install_pkfs':
           path    => '/sbin:/usr/bin:/usr/sbin:/bin',
