@@ -1,5 +1,5 @@
 name    'pubkeyfs'
-version '0.0.1'
+version '0.0.2'
 source  'git-admin.uni.lu:puppet-repo.git'
 author  'Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)'
 license 'GPLv3'
@@ -8,9 +8,10 @@ description  'Configure and manage pubkeyfs'
 project_page 'UNKNOWN'
 
 ## List of the classes defined in this module
-classes     ''
+classes     'pubkeyfs::params, pubkeyfs, pubkeyfs::common, pubkeyfs::debian'
 ## List of the definitions defined in this module
-definitions ''
+definitions 'kernel'
 
 ## Add dependencies, if any:
 # dependency 'username/name', '>= 1.2.0'
+dependency 'kernel' 
