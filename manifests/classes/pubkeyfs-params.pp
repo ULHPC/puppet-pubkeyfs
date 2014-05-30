@@ -49,7 +49,7 @@ class pubkeyfs::params {
 
     # URI
     $uri = $pubkeyfs_uri ? {
-        ''      => 'ldaps://ldap-accounts.uni.lux',
+        ''      => 'ldaps://hpc-ldap.uni.lux',
         default => "${pubkeyfs_uri}"
     }
 
