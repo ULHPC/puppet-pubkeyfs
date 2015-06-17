@@ -16,5 +16,14 @@
 #      sudo puppet apply -t /vagrant/tests/init.pp
 #
 node default {
-    include pubkeyfs
+    class { 'pubkeyfs':
+        ensure      => 'present',
+        fstab       => 'yes',
+        mount_point => '/var/lib/publickeys',
+        uri         => 'ldaps://ldap-server.lu',
+        dn          => 'cn=sync,dc=uni,dc=lu',
+        password    => '************',
+        base        => 'dc=uni,dc=lu',
+        key_attr    => 'sshPublicKey'
+    }
 }
