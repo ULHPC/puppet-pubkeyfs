@@ -1,0 +1,54 @@
+{
+  "name": "ULHPC/pubkeyfs",
+  "version": "0.0.2",
+  "author": "S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team",
+  "mail": "hpc-sysadmins@uni.lu",
+  "summary": "Configure and manage pubkeyfs",
+  "description": "Configure and manage pubkeyfs",
+  "license": "GPL-3.0",
+  "source": "https://github.com/ULHPC/puppet-pubkeyfs",
+  "docs_project": "ulhpc-puppet-pubkeyfs",
+  "project_page": "https://github.com/ULHPC/puppet-pubkeyfs",
+  "issues_url": "https://github.com/ULHPC/puppet-pubkeyfs/issues",
+  "forge_url": "https://forge.puppetlabs.com/ULHPC/pubkeyfs",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">=4.2.2 <5.0.0"
+    },
+    {
+      "name": "puppetlabs-vcsrepo",
+      "version_range": ">=1.2.0 <=2.0.0"
+    },
+    {
+      "name": "ULHPC-kernel",
+      "version_requirement": ">=0.0.2 < 1.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "tags": [
+    "ldap",
+    "ssh",
+    "public-keys",
+    "authorized-keys",
+    "user",
+    "keys"
+  ],
+  "classes": [
+    "pubkeyfs",
+    "pubkeyfs::common",
+    "pubkeyfs::common::debian",
+    "pubkeyfs::params"
+  ],
+  "definitions": [
+
+  ]
+}

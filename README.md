@@ -21,6 +21,10 @@ Configure and manage pubkeyfs.
 This module implements the following elements: 
 
 * __Puppet classes__:
+    - `pubkeyfs` 
+    - `pubkeyfs::common` 
+    - `pubkeyfs::common::debian` 
+    - `pubkeyfs::params` 
 
 * __Puppet definitions__: 
 
@@ -35,6 +39,8 @@ See `docs/contributing.md` for more details on the steps you shall follow to hav
 See [`metadata.json`](metadata.json). In particular, this module depends on 
 
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
+* [puppetlabs/vcsrepo](https://forge.puppetlabs.com/puppetlabs/vcsrepo)
+* [ULHPC/kernel](https://forge.puppetlabs.com/ULHPC/kernel)
 
 ## Overview and Usage
 
