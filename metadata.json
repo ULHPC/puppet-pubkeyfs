@@ -1,6 +1,6 @@
 {
   "name": "ULHPC/pubkeyfs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage pubkeyfs, a FUSE file system exposing SSH public keys from an ldap directory.",
