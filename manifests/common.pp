@@ -1,74 +1,8 @@
-# File::      <tt>pubkeyfs.pp</tt>
+# File::      <tt>common.pp</tt>
 # Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)
 # Copyright:: Copyright (c) 2013 Hyacinthe Cartiaux
 # License::   GPLv3
 #
-# ------------------------------------------------------------------------------
-# = Class: pubkeyfs
-#
-# Configure and manage pubkeyfs
-#
-# == Parameters:
-#
-# $ensure:: *Default*: 'present'. Ensure the presence (or absence) of pubkeyfs
-#
-# == Actions:
-#
-# Install and configure pubkeyfs
-#
-# == Requires:
-#
-# n/a
-#
-# == Sample Usage:
-#
-#     import pubkeyfs
-#
-# You can then specialize the various aspects of the configuration,
-# for instance:
-#
-#         class { 'pubkeyfs':
-#             ensure => 'present'
-#         }
-#
-# == Warnings
-#
-# /!\ Always respect the style guide available
-# here[http://docs.puppetlabs.com/guides/style_guide]
-#
-#
-# [Remember: No empty lines between comments and class definition]
-#
-class pubkeyfs(
-    $ensure      = $pubkeyfs::params::ensure,
-    $fstab       = $pubkeyfs::params::fstab,
-    $mount_point = $pubkeyfs::params::mount_point,
-    $uri         = $pubkeyfs::params::uri,
-    $dn          = $pubkeyfs::params::dn,
-    $password    = $pubkeyfs::params::password,
-    $base        = $pubkeyfs::params::base,
-    $key_attr    = $pubkeyfs::params::key_attr
-)
-inherits pubkeyfs::params
-{
-    info ("Configuring pubkeyfs (with ensure = ${ensure})")
-
-    if ! ($ensure in [ 'present', 'absent' ]) {
-        fail("pubkeyfs 'ensure' parameter must be set to either 'absent' or 'present'")
-    }
-
-    if ! ($fstab in [ 'yes', 'no' ]) {
-        fail("pubkeyfs 'fstab' parameter must be set to either 'yes' or 'no'")
-    }
-
-    case $::operatingsystem {
-        debian, ubuntu:         { include pubkeyfs::debian }
-        default: {
-            fail("Module ${::module_name} is not supported on ${::operatingsystem}")
-        }
-    }
-}
-
 # ------------------------------------------------------------------------------
 # = Class: pubkeyfs::common
 #
@@ -91,25 +25,12 @@ class pubkeyfs::common {
     }
 
     # git clone
-    git::clone { 'git-pubkeyfs':
-        ensure => $pubkeyfs::ensure,
-        path   => $pubkeyfs::params::build_dir,
-        source => $pubkeyfs::params::git_url,
-        user   => $pubkeyfs::params::install_user
-    }
-
-
-    $mount_ensure = $pubkeyfs::fstab ? {
-        'yes'   => 'mounted',
-        default => 'absent'
-    }
-    mount { $pubkeyfs::mount_point:
-        ensure   => $mount_ensure,
-        device   => "${pubkeyfs::params::installdir}/bin/${pubkeyfs::params::processname}",
-        fstype   => 'fuse',
-        options  => 'allow_other',
-        atboot   => true,
-        remounts => false
+    vcsrepo { 'git-pubkeyfs':
+        ensure   => $pubkeyfs::ensure,
+        provider => git,
+        user     => $pubkeyfs::params::install_user,
+        path     => $pubkeyfs::params::build_dir,
+        source   => $pubkeyfs::params::git_url,
     }
 
     $mount_point_ensure = $pubkeyfs::ensure ? {
@@ -134,10 +55,15 @@ class pubkeyfs::common {
     }
 
     if $pubkeyfs::ensure == 'present' {
+        $mount_ensure = $pubkeyfs::fstab ? {
+            'yes'   => 'mounted',
+            default => 'absent'
+        }
+
         Package[$pubkeyfs::params::fuse_packagename] -> Kernel::Module['fuse']
         Kernel::Module['fuse'] -> File[$pubkeyfs::mount_point]
 
-        if ($fstab == 'yes') {
+        if ($pubkeyfs::fstab == 'yes') {
           File[$pubkeyfs::mount_point] -> Mount[$pubkeyfs::mount_point]
         }
 
@@ -152,13 +78,15 @@ class pubkeyfs::common {
           unless  => "test -f ${pubkeyfs::params::installdir}/bin/${pubkeyfs::params::processname}",
           user    => $pubkeyfs::params::install_user,
           group   => $pubkeyfs::params::install_group,
-          require => Git::Clone['git-pubkeyfs']
+          require => [ Vcsrepo['git-pubkeyfs'], File[$pubkeyfs::mount_point]]
         }
 
         Exec['install_pkfs'] -> Mount[$pubkeyfs::mount_point]
     }
     else
     {
+        $mount_ensure = 'absent'
+
         exec { 'remove_pkfs':
           path    => '/sbin:/usr/bin:/usr/sbin:/bin',
           command => "rm -f ${pubkeyfs::params::installdir}/bin/${pubkeyfs::params::processname}",
@@ -168,12 +96,14 @@ class pubkeyfs::common {
         }
     }
 
+    mount { $pubkeyfs::mount_point:
+        ensure   => $mount_ensure,
+        device   => "${pubkeyfs::params::installdir}/bin/${pubkeyfs::params::processname}",
+        fstype   => 'fuse',
+        options  => 'allow_other',
+        atboot   => true,
+        remounts => false
+    }
+
+
 }
-
-
-# ------------------------------------------------------------------------------
-# = Class: pubkeyfs::debian
-#
-# Specialization class for Debian systems
-class pubkeyfs::debian inherits pubkeyfs::common { }
-
