@@ -15,7 +15,7 @@
 
 include 'pubkeyfs::params'
 
-$names = ["ensure", "protocol", "port", "packagename"]
+$names = ['ensure', 'protocol', 'port', 'packagename']
 
 notice("pubkeyfs::params::ensure = ${pubkeyfs::params::ensure}")
 notice("pubkeyfs::params::protocol = ${pubkeyfs::params::protocol}")

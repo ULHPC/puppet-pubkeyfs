@@ -30,51 +30,51 @@ class pubkeyfs::params {
     ###########################################
 
     # ensure the presence (or absence) of pubkeyfs
-    $ensure = $pubkeyfs_ensure ? {
+    $ensure = $::pubkeyfs_ensure ? {
         ''      => 'present',
-        default => "${pubkeyfs_ensure}"
+        default => $::pubkeyfs_ensure
     }
 
     # add a pubkeyfs line in /etc/fstab
-    $fstab = $pubkeyfs_fstab ? {
+    $fstab = $::pubkeyfs_fstab ? {
         ''      => 'yes',
-        default => "${pubkeyfs_fstab}"
+        default => $::pubkeyfs_fstab
     }
 
     # mount_point
-    $mount_point = $pubkeyfs_mount_point ? {
+    $mount_point = $::pubkeyfs_mount_point ? {
         ''      => '/var/lib/publickeys',
-        default => "${pubkeyfs_mount_point}"
+        default => $::pubkeyfs_mount_point
     }
 
     # URI
-    $uri = $pubkeyfs_uri ? {
+    $uri = $::pubkeyfs_uri ? {
         ''      => 'ldaps://hpc-ldap.uni.lux',
-        default => "${pubkeyfs_uri}"
+        default => $::pubkeyfs_uri
     }
 
     # base
-    $base = $pubkeyfs_base ? {
+    $base = $::pubkeyfs_base ? {
         ''      => 'dc=uni,dc=lu',
-        default => "${pubkeyfs_base}"
+        default => $::pubkeyfs_base
     }
 
     # dn
-    $dn = $pubkeyfs_dn ? {
+    $dn = $::pubkeyfs_dn ? {
         ''      => 'cn=admin,dc=uni,dc=lu',
-        default => "${pubkeyfs_dn}"
+        default => $::pubkeyfs_dn
     }
 
     # password
-    $password = $pubkeyfs_password ? {
+    $password = $::pubkeyfs_password ? {
         ''      => 'secret_password',
-        default => "${pubkeyfs_password}"
+        default => $::pubkeyfs_password
     }
 
     # ldap ssh pub key attribute
-    $key_attr = $pubkeyfs_key_attr ? {
+    $key_attr = $::pubkeyfs_key_attr ? {
         ''      => 'sshPublicKey',
-        default => "${pubkeyfs_key_attr}"
+        default => $::pubkeyfs_key_attr
     }
 
 

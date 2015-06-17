@@ -92,10 +92,10 @@ class pubkeyfs::common {
 
     # git clone
     git::clone { 'git-pubkeyfs':
-        ensure    => $pubkeyfs::ensure,
-        path      => $pubkeyfs::params::build_dir,
-        source    => $pubkeyfs::params::git_url,
-        user      => $pubkeyfs::params::install_user
+        ensure => $pubkeyfs::ensure,
+        path   => $pubkeyfs::params::build_dir,
+        source => $pubkeyfs::params::git_url,
+        user   => $pubkeyfs::params::install_user
     }
 
 
@@ -125,8 +125,8 @@ class pubkeyfs::common {
     # module fuse
 
     package { $pubkeyfs::params::fuse_packagename:
-        ensure  => $pubkeyfs::ensure,
-        name    => $pubkeyfs::params::fuse_packagename
+        ensure => $pubkeyfs::ensure,
+        name   => $pubkeyfs::params::fuse_packagename
     }
     include kernel
     kernel::module { 'fuse':
