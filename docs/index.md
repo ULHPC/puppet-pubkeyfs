@@ -7,13 +7,13 @@
 ![Supported Platforms](http://img.shields.io/badge/platform-debian-lightgrey.svg)
 [![Documentation Status](https://readthedocs.org/projects/ulhpc-puppet-pubkeyfs/badge/?version=latest)](https://readthedocs.org/projects/ulhpc-puppet-pubkeyfs/?badge=latest)
 
-      Copyright (c) 2015 S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team <hpc-sysadmins@uni.lu>
+      Copyright (c) 2016 S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team <hpc-sysadmins@uni.lu>
 
 | [Project Page](https://github.com/ULHPC/puppet-pubkeyfs) | [Documentation](http://ulhpc-puppet-pubkeyfs.readthedocs.org/en/latest/) | [Issues](https://github.com/ULHPC/puppet-pubkeyfs/issues) |
 
 
 -----------
-The [ULHPC/pubkeyfs](https://github.com/ULHPC/puppet-pubkeyfs) puppet module has been designed to configure and manage pubkeyfs
+The [ULHPC/pubkeyfs](https://github.com/ULHPC/puppet-pubkeyfs) puppet module has been designed to configure and manage pubkeyfs, a fuse file system exposing ssh public keys from an ldap directory
 
 This is the main page of the documentation for this Puppet module, which is hosted and managed by [Read the Docs](http://ulhpc-pubkeyfs.readthedocs.org/en/latest/).
 It proposes to detail the following elements:

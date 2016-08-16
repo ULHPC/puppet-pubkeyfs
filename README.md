@@ -7,16 +7,16 @@
 ![Supported Platforms](http://img.shields.io/badge/platform-debian-lightgrey.svg)
 [![Documentation Status](https://readthedocs.org/projects/ulhpc-puppet-pubkeyfs/badge/?version=latest)](https://readthedocs.org/projects/ulhpc-puppet-pubkeyfs/?badge=latest)
 
-Configure and manage pubkeyfs, a FUSE file system exposing SSH public keys from an ldap directory.
+Configure and manage pubkeyfs, a FUSE file system exposing SSH public keys from an ldap directory
 
-      Copyright (c) 2015 S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team <hpc-sysadmins@uni.lu>
+      Copyright (c) 2016 S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team <hpc-sysadmins@uni.lu>
       
 
 | [Project Page](https://github.com/ULHPC/puppet-pubkeyfs) | [Sources](https://github.com/ULHPC/puppet-pubkeyfs) | [Documentation](https://ulhpc-puppet-pubkeyfs.readthedocs.org/en/latest/) | [Issues](https://github.com/ULHPC/puppet-pubkeyfs/issues) |
 
 ## Synopsis
 
-Configure and manage pubkeyfs, a FUSE file system for SSH public keys.
+Configure and manage pubkeyfs, a FUSE file system exposing SSH public keys from an ldap directory.
 
 This module implements the following elements: 
 
