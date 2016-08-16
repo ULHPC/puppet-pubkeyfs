@@ -83,7 +83,7 @@ class pubkeyfs::params {
     #######################################
     # pubkeyfs packages
 
-    $git_url = 'https://github.com/kelseyhightower/pubkeyfs.git'
+    $git_url = 'https://github.com/abridgett/pubkeyfs.git'
 
     $build_dir = '/root/pubkeyfs'
 
